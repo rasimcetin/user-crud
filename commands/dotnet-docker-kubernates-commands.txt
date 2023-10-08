@@ -1,0 +1,16 @@
+docker run --name user-crud-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /data:/var/lib/postgresql/data-user-crud -d postgres 
+
+
+-- Add Migration
+dotnet ef migrations add FirstMigration --project ..\user-crud-backend-data\user-crud-backend-data.csproj
+
+dotnet ef migrations remove -f -p ..\user-crud-backend-data\user-crud-backend-data.csproj
+
+-- Create and Update Database
+$env:HOST="localhost"
+$env:PORT="5432"
+$env:DATABASE="user-crud-db"
+$env:USER_ID="postgres"
+$env:PASSWORD="postgres"
+
+dotnet ef database update
