@@ -6,20 +6,21 @@ export const userCreateSchema = yup.object().shape({
   lastName: yup.string().required("Last name required"),
   email: yup
     .string()
-    .email("Geçerli bir email adresi giriniz")
-    .required("Email girmek zorunludur."),
-  gender: yup.number().oneOf([0, 1], "Lütfen cinsiyet bilgisini giriniz."),
+    .email("Please enter a valid email")
+    .required("Email is required."),
+  gender: yup.number().oneOf([0, 1], "Please enter your gender"),
   password: yup
     .string()
-    .min(5, "Lütfen minimum 5  karakter giriniz.")
+    .min(5, "Enter minimum 5 characters")
     .matches(passwordRules, {
-      message: "Lütfen en az 1 büyük 1 küçük harf ve 1 sayı giriniz.",
+      message:
+        "Please enter at least 1 uppercase, 1 lowercase letter and 1 number.",
     })
-    .required("Şifre girmek zorunludur."),
+    .required("Please enter password"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password")], "Şifreler eşleşmiyor.")
-    .required("Tekrar şifre girmek zorunludur."),
+    .oneOf([yup.ref("password")], "Passwords do not match.")
+    .required("Please enter your password again."),
 });
 
 export const userUpdateSchema = yup.object().shape({
@@ -27,7 +28,7 @@ export const userUpdateSchema = yup.object().shape({
   lastName: yup.string().required("Last name required"),
   email: yup
     .string()
-    .email("Geçerli bir email adresi giriniz")
-    .required("Email girmek zorunludur."),
-  gender: yup.number().oneOf([0, 1], "Lütfen cinsiyet bilgisini giriniz."),
+    .email("Please enter a valid email")
+    .required("Email is required."),
+  gender: yup.number().oneOf([0, 1], "Please enter your gender"),
 });
