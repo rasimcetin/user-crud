@@ -3,24 +3,21 @@ import useFetchData from "../hooks/fetchData";
 import { Box, CircularProgress } from "@mui/material";
 import UserDetail from "./UserDetail";
 import axios from "axios";
+import { userUpdateSchema } from "../schemas/index";
 
 const UpdateUser = () => {
   let { id } = useParams();
-  const { data, isLoading, error, setData } = useFetchData(
+  const { data, isLoading, error } = useFetchData(
     "http://localhost:5172/api/User/" + id
   );
 
   const navigate = useNavigate();
 
-  const changeUserProperty = (propertyName, propertyValue) => {
-    setData({ ...data, [propertyName]: propertyValue });
-  };
-
-  const updateUser = async () => {
+  const updateUser = async (user) => {
     try {
       const response = await axios.put(
-        "http://localhost:5172/api/User/" + id,
-        data
+        "http://localhost:5172/api/User/" + user.id,
+        user
       );
       console.log(response);
       navigate("/");
@@ -38,14 +35,14 @@ const UpdateUser = () => {
       ) : data !== null ? (
         <UserDetail
           user={data}
-          changeUser={changeUserProperty}
           userAction={updateUser}
           isForUpdate={true}
+          validationSchema={userUpdateSchema}
         />
       ) : (
         <div>{"No data found"}</div>
       )}
-      {isLoading === false && error !== null && <div>{"Error occured"}</div>}
+      {isLoading === false && error !== null && <div>{"Error occur"}</div>}
     </>
   );
 };
